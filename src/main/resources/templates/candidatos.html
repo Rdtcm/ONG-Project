@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Candidatos - Rede Mais Social</title>
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🌿 Rede Mais Social</h1>
+      <p class="subtitle">Lista de Candidatos</p>
+    </header>
+
+    <div class="section">
+      <table style="width: 100%; border-collapse: collapse;">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Email</th>
+            <th>CPF/CNPJ</th>
+            <th>Situação</th>
+            <th>Data</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="candidato : ${candidatos}">
+            <td th:text="${candidato.id}"></td>
+            <td th:text="${candidato.nome}"></td>
+            <td th:text="${candidato.email}"></td>
+            <td th:text="${candidato.cpfOuCnpj}"></td>
+            <td th:text="${candidato.situacao}"></td>
+            <td th:text="${candidato.dataSolicitacao}"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <a th:href="@{/}" class="btn">Voltar ao Formulário</a>
+  </div>
+</body>
+</html>

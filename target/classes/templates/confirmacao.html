@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Confirmação - Rede Mais Social</title>
+  <style>
+    /* Mesmos estilos do formulário */
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(-45deg, #1d976c, #93f9b9, #56ab2f, #a8e063);
+      background-size: 400% 400%;
+      animation: gradientBG 12s ease infinite;
+      color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      backdrop-filter: blur(15px);
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 20px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+      width: 100%;
+      max-width: 600px;
+      padding: 40px;
+      text-align: center;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    .success-icon {
+      font-size: 4rem;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      color: white;
+      margin-bottom: 20px;
+    }
+
+    .message {
+      background: rgba(255, 255, 255, 0.85);
+      border-radius: 16px;
+      padding: 25px;
+      margin-bottom: 20px;
+    }
+
+    .btn {
+      background: linear-gradient(90deg, #1d976c, #93f9b9);
+      color: #fff;
+      padding: 12px 30px;
+      font-size: 1rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      margin: 5px;
+    }
+
+    .btn:hover {
+      background: linear-gradient(90deg, #158a5a, #5ef5a1);
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="success-icon">✅</div>
+    <h1>Solicitação Recebida!</h1>
+    
+    <div class="message">
+      <h2>Obrigado por se candidatar!</h2>
+      <p>Sua solicitação de afiliação foi recebida com sucesso e está em processo de análise.</p>
+      <p th:if="${sucesso}" th:text="${sucesso}"></p>
+      
+      <h3>Próximos passos:</h3>
+      <ul style="text-align: left; margin: 15px 0;">
+        <li>Verifique seu e-mail para validação</li>
+        <li>Aguarde a análise da nossa equipe</li>
+        <li>Você receberá uma resposta em até 48 horas</li>
+      </ul>
+    </div>
+
+    <a th:href="@{/}" class="btn">Nova Solicitação</a>
+    <a th:href="@{/candidatos}" class="btn">Ver Candidatos</a>
+  </div>
+</body>
+</html>
