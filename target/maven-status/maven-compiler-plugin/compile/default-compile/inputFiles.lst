@@ -1,1 +1,6 @@
 /home/ryan/Documents/Projeto-PO/projeto_so/src/main/java/com/example/projeto_so/ProjetoSoApplication.java
+/home/ryan/Documents/Projeto-PO/projeto_so/src/main/java/com/example/projeto_so/controllers/AfiliacaoController.java
+/home/ryan/Documents/Projeto-PO/projeto_so/src/main/java/com/example/projeto_so/controllers/IndexController.java
+/home/ryan/Documents/Projeto-PO/projeto_so/src/main/java/com/example/projeto_so/entity/Candidato.java
+/home/ryan/Documents/Projeto-PO/projeto_so/src/main/java/com/example/projeto_so/repository/CandidatoRepository.java
+/home/ryan/Documents/Projeto-PO/projeto_so/src/main/java/com/example/projeto_so/service/AfiliacaoService.java

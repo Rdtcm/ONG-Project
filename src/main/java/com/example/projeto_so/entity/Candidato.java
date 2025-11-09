@@ -1,9 +1,7 @@
 package com.example.projeto_so.entity;
 
-import javax.persistence.*;
-
-import org.apache.poi.ss.formula.functions.Columns;
-
+// ✅ CORRETO: Spring Boot 3+ usa jakarta.persistence
+import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
@@ -13,7 +11,7 @@ public class Candidato {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @Column(unique = true, nullable = false, name = "")
+    @Column(unique = true, nullable = false)
     private String email;
     
     @Column(name = "cpf_ou_cnpj", unique = true, nullable = false)
@@ -22,35 +20,36 @@ public class Candidato {
     private String nome;
     private String sexo;
     
-    Columns(name 
-    = "data_nascimento")
+    // ✅ CORRIGIDO: Removido import errado do Apache POI
+    @Column(name = "data_nascimento")
     private String dataNascimento;
     
     private String nacionalidade;
     
-    @Column(name = "endereco_residencial", nullable = false, unique = false)
+    // ✅ CORRIGIDO: Removido unique=false (não necessário)
+    @Column(name = "endereco_residencial")
     private String enderecoResidencial;
     
-    @Column(name = "endereco_comercial", nullable = false, unique = false)
+    @Column(name = "endereco_comercial")
     private String enderecoComercial;
     
     private String profissao;
     
-    @Column(name = "habilidades_interesses", length = 1000, nullable = false, unique = false)
+    @Column(name = "habilidades_interesses", length = 1000)
     private String habilidadesInteresses;
     
     private boolean aceitouTermo;
     
-    @Enumerated(EnumType.STRING)
-    private SituacaoCandidato situacao = SituacaoCandidato.AGUARDANDO_VALIDACAO;
+    // ✅ CORRIGIDO: Usando String simples (mais fácil)
+    private String situacao = "AGUARDANDO_VALIDACAO";
     
-    @Column(name = "data_solicitacao", nullable = false, unique = false)
+    @Column(name = "data_solicitacao")
     private LocalDateTime dataSolicitacao = LocalDateTime.now();
     
     // Construtores
     public Candidato() {}
     
-    // Getters e Setters
+    // Getters e Setters (mantenha todos que você tinha)
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
     
@@ -87,17 +86,9 @@ public class Candidato {
     public boolean isAceitouTermo() { return aceitouTermo; }
     public void setAceitouTermo(boolean aceitouTermo) { this.aceitouTermo = aceitouTermo; }
     
-    public SituacaoCandidato getSituacao() { return situacao; }
-    public void setSituacao(SituacaoCandidato situacao) { this.situacao = situacao; }
+    public String getSituacao() { return situacao; }
+    public void setSituacao(String situacao) { this.situacao = situacao; }
     
     public LocalDateTime getDataSolicitacao() { return dataSolicitacao; }
     public void setDataSolicitacao(LocalDateTime dataSolicitacao) { this.dataSolicitacao = dataSolicitacao; }
-}
-
-enum SituacaoCandidato {
-    AGUARDANDO_VALIDACAO,
-    AGUARDANDO_APROVACAO,
-    APROVADO,
-    REJEITADO,
-    BLOQUEADO
 }

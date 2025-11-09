@@ -1,11 +1,12 @@
 package com.example.projeto_so.service;
 
-import com.example.projeto_so.entity.Candidato;
-import com.example.projeto_so.entity.SituacaoCandidato;
-import com.example.projeto_so.repository.CandidatoRepository;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.List;
+
+import com.example.projeto_so.entity.Candidato;
+import com.example.projeto_so.repository.CandidatoRepository;
 
 @Service
 public class AfiliacaoService {
@@ -14,17 +15,16 @@ public class AfiliacaoService {
     private CandidatoRepository candidatoRepository;
     
     public Candidato salvarCandidato(Candidato candidato) {
-        // Verifica se já existe cadastro
+        // verifica se já existe cadastro
         if (candidatoRepository.existsByEmail(candidato.getEmail()) || 
             candidatoRepository.existsByCpfOuCnpj(candidato.getCpfOuCnpj())) {
             throw new RuntimeException("Já existe um cadastro com este e-mail ou CPF/CNPJ");
         }
         
-        // Define situação inicial
         if (candidato.isAceitouTermo()) {
-            candidato.setSituacao(SituacaoCandidato.AGUARDANDO_VALIDACAO);
+            candidato.setSituacao("AGUARDANDO_VALIDACAO");
         } else {
-            candidato.setSituacao(SituacaoCandidato.BLOQUEADO);
+            candidato.setSituacao("BLOQUEADO");
         }
         
         return candidatoRepository.save(candidato);
