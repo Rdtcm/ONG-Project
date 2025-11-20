@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Processo Encerrado - Rede Mais Social</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: #020617;
+            color: #f8fafc;
+            font-family: 'Space Grotesk', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 5vw 2vw;
+        }
+        .card {
+            width: min(640px, 95vw);
+            text-align: center;
+            background: rgba(15,23,42,.85);
+            border-radius: 32px;
+            border: 1px solid rgba(148,163,184,.2);
+            padding: clamp(1.5rem, 4vw, 3rem);
+            box-shadow: 0 30px 70px rgba(2,6,23,.65);
+        }
+        a {
+            display: inline-block;
+            margin-top: 2rem;
+            border-radius: 999px;
+            padding: 1rem 2rem;
+            background: linear-gradient(120deg,#34d399,#22d3ee);
+            color: #02131d;
+            text-decoration: none;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+<section class="card">
+    <h1>Processo encerrado</h1>
+    <p th:text="${mensagem}">Sua solicitação foi encerrada.</p>
+    <a th:href="@{/}">Voltar à página inicial</a>
+</section>
+</body>
+</html>
+

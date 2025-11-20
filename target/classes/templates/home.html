@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rede Mais Social - Conecte-se</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            color-scheme: light dark;
+            --bg: radial-gradient(circle at 20% 20%, rgba(76, 201, 240, .35), transparent 50%),
+                  radial-gradient(circle at 80% 0%, rgba(29, 151, 108, .5), transparent 55%),
+                  #020617;
+            --card: rgba(255, 255, 255, 0.08);
+            --accent: #38bdf8;
+            --accent-2: #34d399;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: 'Space Grotesk', sans-serif;
+            min-height: 100vh;
+            background: var(--bg);
+            color: #f8fafc;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 2rem 4vw;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .brand {
+            font-size: 1.25rem;
+            font-weight: 600;
+            letter-spacing: .05em;
+        }
+
+        .btn {
+            border: 1px solid transparent;
+            padding: .9rem 1.8rem;
+            border-radius: 999px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform .25s ease, box-shadow .25s ease, background .25s ease;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(120deg, #34d399, #22d3ee);
+            color: #02101e;
+            box-shadow: 0 10px 40px rgba(56, 189, 248, .35);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px) scale(1.01);
+        }
+
+        .btn-outline {
+            border-color: rgba(255, 255, 255, .4);
+            color: #e2e8f0;
+            background: transparent;
+        }
+
+        main {
+            flex: 1;
+            display: grid;
+            place-items: center;
+            padding: 0 4vw 4vw;
+        }
+
+        .hero {
+            width: min(1100px, 100%);
+            background: var(--card);
+            border: 1px solid rgba(148, 163, 184, .2);
+            border-radius: 32px;
+            padding: clamp(2rem, 5vw, 4rem);
+            box-shadow: 0 30px 80px rgba(2, 6, 23, .55);
+            backdrop-filter: blur(20px);
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            color: #cbd5f5;
+            max-width: 700px;
+            margin: 0 auto 2.5rem;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .hero-actions .btn {
+            min-width: 220px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            color: rgba(255, 255, 255, .6);
+            font-size: .9rem;
+        }
+
+        @media (max-width: 640px) {
+            header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="brand">Rede Mais Social</div>
+    <nav>
+        <a class="btn btn-outline" th:href="@{/login}">Login</a>
+    </nav>
+</header>
+
+<main>
+    <section class="hero">
+        <p style="letter-spacing:.25em;text-transform:uppercase;color:#94a3b8;margin-bottom:.75rem;">Rede Mais Social</p>
+        <h1>Impulsione sua atuação social</h1>
+        <p th:text="${heroMessage}">Crie conexões com outras lideranças sociais e acelere sua causa.</p>
+        <div class="hero-actions">
+            <a class="btn btn-primary" th:href="@{/afiliacao/inicio}">Solicitar Afiliação</a>
+            <a class="btn btn-outline" th:href="@{/cadastro-senha}">Cadastro</a>
+        </div>
+    </section>
+</main>
+
+<footer>
+    © Rede Mais Social · Transformando vidas com tecnologia e empatia
+</footer>
+</body>
+</html>
+

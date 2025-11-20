@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certidões PJ - Rede Mais Social</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: #020617;
+            font-family: 'Space Grotesk', sans-serif;
+            color: #f8fafc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 5vw 3vw;
+        }
+        .wrapper {
+            width: min(1000px, 95vw);
+            background: rgba(15, 23, 42, .85);
+            border-radius: 32px;
+            border: 1px solid rgba(148, 163, 184, .2);
+            padding: clamp(1.5rem, 4vw, 3rem);
+            box-shadow: 0 30px 80px rgba(2,6,23,.65);
+        }
+        h1 { margin-top: 0; }
+        .certidao-card {
+            border: 1px solid rgba(148, 163, 184, .3);
+            border-radius: 24px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            background: rgba(15, 23, 42, .5);
+        }
+        label { font-size: .9rem; color: #cbd5f5; }
+        input, select {
+            width: 100%;
+            border-radius: 16px;
+            border: 1px solid rgba(148, 163, 184, .35);
+            padding: 1rem;
+            background: rgba(15, 23, 42, .6);
+            color: inherit;
+            margin-bottom: 1rem;
+        }
+        .grid {
+            display: grid;
+            gap: 1rem;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        }
+        button {
+            border: none;
+            border-radius: 999px;
+            padding: 1rem;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+        .btn-add {
+            width: 100%;
+            border: 1px dashed rgba(148,163,184,.5);
+            background: transparent;
+            color: #a5b4fc;
+            margin-bottom: 1.5rem;
+        }
+        .btn-submit {
+            width: 100%;
+            background: linear-gradient(120deg,#34d399,#22d3ee);
+            color: #02131d;
+        }
+        .erros {
+            border: 1px solid rgba(248, 113, 113, .4);
+            background: rgba(248, 113, 113, .15);
+            border-radius: 20px;
+            padding: 1rem;
+            color: #fecaca;
+            list-style: none;
+        }
+    </style>
+</head>
+<body>
+<section class="wrapper">
+    <h1>Certidões obrigatórias</h1>
+    <p>Anexe os comprovantes vigentes para validar sua atuação como Pessoa Jurídica.</p>
+
+    <ul class="erros" th:if="${erros}">
+        <li th:each="erro : ${erros}" th:text="${erro}"></li>
+    </ul>
+
+    <form th:action="@{/afiliacao/certidoes}" method="post" id="certidoesForm">
+        <div id="certidoesContainer"></div>
+        <button class="btn-add" type="button" id="adicionarCertidao">+ Adicionar certidão</button>
+        <button class="btn-submit" type="submit">Seguir para o perfil</button>
+    </form>
+</section>
+
+<template id="certidaoTemplate">
+    <div class="certidao-card">
+        <div class="grid">
+            <div>
+                <label>Tipo</label>
+                <select name="tipo" required>
+                    <option value="Certidão Negativa Federal">Certidão Negativa Federal</option>
+                    <option value="Certidão Negativa Estadual">Certidão Negativa Estadual</option>
+                    <option value="Certidão Trabalhista">Certidão Trabalhista</option>
+                </select>
+            </div>
+            <div>
+                <label>Número</label>
+                <input type="text" name="numero" placeholder="0000-0000" required>
+            </div>
+        </div>
+        <div class="grid">
+            <div>
+                <label>Data de emissão</label>
+                <input type="date" name="dataEmissao" required>
+            </div>
+            <div>
+                <label>Validade</label>
+                <input type="date" name="dataValidade" required>
+            </div>
+        </div>
+        <div>
+            <label>Arquivo (dropdown)</label>
+            <select name="arquivoPath" required>
+                <option value="certidoes/certidao01.pdf">certidao01.pdf</option>
+                <option value="certidoes/certidao02.pdf">certidao02.pdf</option>
+                <option value="certidoes/certidao03.pdf">certidao03.pdf</option>
+            </select>
+        </div>
+    </div>
+</template>
+
+<script>
+    const container = document.getElementById('certidoesContainer');
+    const template = document.getElementById('certidaoTemplate');
+    const addBtn = document.getElementById('adicionarCertidao');
+
+    const addCard = () => {
+        const clone = template.content.cloneNode(true);
+        container.appendChild(clone);
+    };
+
+    addBtn.addEventListener('click', addCard);
+    addCard();
+</script>
+</body>
+</html>
+

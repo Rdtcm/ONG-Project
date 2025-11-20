@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Termo de Compromisso - Rede Mais Social</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: linear-gradient(135deg,#020617 0%,#0f172a 45%,#083344 100%);
+            color: #f8fafc;
+            font-family: 'Space Grotesk', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4vw 2vw;
+        }
+        .card {
+            width: min(900px, 95vw);
+            background: rgba(15,23,42,.9);
+            border-radius: 32px;
+            border: 1px solid rgba(148,163,184,.25);
+            padding: clamp(1.5rem,4vw,3rem);
+            box-shadow: 0 35px 90px rgba(2,6,23,.7);
+        }
+        h1 { margin-top: 0; }
+        .conteudo {
+            max-height: 320px;
+            overflow-y: auto;
+            margin: 1.5rem 0;
+            padding: 1.5rem;
+            background: rgba(15, 23, 42, .6);
+            border-radius: 24px;
+            border: 1px solid rgba(148,163,184,.15);
+        }
+        .actions {
+            display: grid;
+            gap: 1rem;
+        }
+        button {
+            border: none;
+            border-radius: 999px;
+            padding: 1rem;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+        .btn-green { background: linear-gradient(120deg,#34d399,#22d3ee); color:#02131d; }
+        .btn-outline { background: transparent; border:1px solid rgba(248,113,113,.5); color:#fecaca; }
+    </style>
+</head>
+<body>
+<section class="card">
+    <h1>Termo de compromisso v.<span th:text="${termo.versao}">1.0</span></h1>
+    <p>Leia com atenção e confirme seu aceite para dar continuidade ao processo.</p>
+
+    <div class="conteudo">
+        <p th:text="${termo.conteudo}">Conteúdo do termo vigente.</p>
+    </div>
+
+    <form th:action="@{/afiliacao/termo}" method="post" class="actions">
+        <button class="btn-green" type="submit" name="aceite" value="true">Aceito os termos</button>
+        <button class="btn-outline" type="submit" name="aceite" value="false">Não aceito</button>
+    </form>
+</section>
+</body>
+</html>
+

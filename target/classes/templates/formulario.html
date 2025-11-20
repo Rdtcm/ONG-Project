@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Solicitação de Afiliação - Rede Mais Social</title>
+  <style>
+    /* SEU CSS ORIGINAL AQUI - MANTIDO INTEGRO */
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(-45deg, #1d976c, #93f9b9, #56ab2f, #a8e063);
+      background-size: 400% 400%;
+      animation: gradientBG 12s ease infinite;
+      color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .container {
+      backdrop-filter: blur(15px);
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 20px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+      width: 100%;
+      max-width: 850px;
+      padding: 40px 50px;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 35px;
+      color: #fff;
+    }
+
+    header h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      text-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    .subtitle {
+      font-size: 1rem;
+      color: #f1f1f1;
+      opacity: 0.9;
+      margin-top: 5px;
+    }
+
+    .section {
+      margin-bottom: 30px;
+      background: rgba(255, 255, 255, 0.85);
+      border-radius: 16px;
+      padding: 25px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s ease;
+    }
+
+    .section:hover {
+      transform: translateY(-3px);
+    }
+
+    .section h2 {
+      color: #1d976c;
+      font-size: 1.1rem;
+      margin-bottom: 15px;
+      border-left: 5px solid #1d976c;
+      padding-left: 10px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 600;
+      color: #333;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      font-size: 1rem;
+      margin-bottom: 15px;
+      transition: all 0.3s ease;
+      background: #fff;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: #1d976c;
+      box-shadow: 0 0 8px rgba(29, 151, 108, 0.4);
+      transform: scale(1.01);
+    }
+
+    textarea {
+      resize: none;
+    }
+
+    .checkbox {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .checkbox input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      accent-color: #1d976c;
+    }
+
+    .btn {
+      width: 100%;
+      background: linear-gradient(90deg, #1d976c, #93f9b9);
+      color: #fff;
+      padding: 14px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    .btn:hover {
+      background: linear-gradient(90deg, #158a5a, #5ef5a1);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+    }
+
+    .termo p {
+      font-size: 0.95rem;
+      color: #333;
+    }
+
+    .alert {
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      text-align: center;
+      font-weight: 600;
+    }
+
+    .alert-success {
+      background: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+
+    .alert-error {
+      background: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 25px 20px;
+      }
+
+      header h1 {
+        font-size: 1.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🌿 Rede Mais Social</h1>
+      <p class="subtitle">Formulário de Solicitação de Afiliação</p>
+    </header>
+
+    <!-- Mensagens de Sucesso/Erro -->
+    <div th:if="${sucesso}" class="alert alert-success" th:text="${sucesso}"></div>
+    <div th:if="${erro}" class="alert alert-error" th:text="${erro}"></div>
+
+    <form th:action="@{/solicitar-afiliacao}" th:object="${candidato}" method="post" class="form">
+      
+      <section class="section">
+        <h2>Dados de Acesso</h2>
+        <label>E-mail</label>
+        <input type="email" th:field="*{email}" placeholder="exemplo@email.com" required />
+        
+        <label>CPF / CNPJ</label>
+        <input type="text" th:field="*{cpfOuCnpj}" placeholder="Somente números" required />
+      </section>
+
+      <section class="section">
+        <h2>Identificação Pessoal</h2>
+        <label>Nome Completo</label>
+        <input type="text" th:field="*{nome}" placeholder="Digite seu nome completo" required />
+
+        <label>Sexo</label>
+        <select th:field="*{sexo}" required>
+          <option value="">Selecione</option>
+          <option value="MASCULINO">Masculino</option>
+          <option value="FEMININO">Feminino</option>
+          <option value="OUTRO">Outro</option>
+        </select>
+
+        <label>Data de Nascimento</label>
+        <input type="date" th:field="*{dataNascimento}" required />
+
+        <label>Nacionalidade</label>
+        <input type="text" th:field="*{nacionalidade}" placeholder="Ex: Brasileira" required />
+
+        <label>Profissão</label>
+        <input type="text" th:field="*{profissao}" placeholder="Digite sua profissão" required />
+      </section>
+
+      <section class="section">
+        <h2>Endereço</h2>
+        <label>Endereço Residencial</label>
+        <input type="text" th:field="*{enderecoResidencial}" placeholder="Rua, número, bairro" required />
+
+        <label>Endereço Comercial</label>
+        <input type="text" th:field="*{enderecoComercial}" placeholder="Rua, número, bairro" />
+      </section>
+
+      <section class="section">
+        <h2>Perfil e Interesses</h2>
+        <textarea th:field="*{habilidadesInteresses}" rows="4" 
+                  placeholder="Descreva suas habilidades e áreas de interesse" required></textarea>
+      </section>
+
+      <section class="section">
+        <h2>Termo de Compromisso</h2>
+        <div class="termo">
+          <p>Ao prosseguir, declaro estar de acordo com as diretrizes e compromissos da Rede Mais Social.</p>
+          <label class="checkbox">
+            <input type="checkbox" th:field="*{aceitouTermo}" required />
+            <span>Aceito os termos e condições</span>
+          </label>
+        </div>
+      </section>
+
+      <button type="submit" class="btn">Enviar Solicitação</button>
+    </form>
+  </div>
+</body>
+</html>
+
+
