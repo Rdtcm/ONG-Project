@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Rede Mais Social</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: linear-gradient(135deg,#020617 0%,#0f172a 45%,#0f766e 100%);
+            --card: rgba(15, 23, 42, 0.85);
+            --accent: #34d399;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: #f8fafc;
+        }
+
+        .card {
+            width: min(380px, 90vw);
+            padding: 2.5rem;
+            border-radius: 28px;
+            background: var(--card);
+            border: 1px solid rgba(255,255,255,.08);
+            box-shadow: 0 25px 60px rgba(2, 6, 23, .65);
+            position: relative;
+            overflow: hidden;
+        }
+
+        h1 {
+            margin: 0 0 1.5rem;
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            font-size: .9rem;
+            color: #cbd5f5;
+            margin-bottom: .35rem;
+        }
+
+        input {
+            width: 100%;
+            padding: .9rem 1.1rem;
+            border-radius: 14px;
+            border: 1px solid rgba(148, 163, 184, .3);
+            background: rgba(15, 23, 42, .6);
+            color: #f8fafc;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        button {
+            width: 100%;
+            border: none;
+            padding: 1rem;
+            border-radius: 999px;
+            font-weight: 600;
+            font-size: 1rem;
+            margin-top: .5rem;
+            background: linear-gradient(120deg,#34d399,#22d3ee);
+            color: #02131d;
+            cursor: pointer;
+            box-shadow: 0 15px 35px rgba(34, 211, 238, .35);
+        }
+
+        .links {
+            display: flex;
+            justify-content: space-between;
+            font-size: .85rem;
+            margin-top: 1.2rem;
+        }
+
+        .links a {
+            color: #38bdf8;
+            text-decoration: none;
+        }
+
+        .modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(2, 6, 23, .75);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .modal.active { display: flex; }
+
+        .modal-content {
+            background: #0f172a;
+            border-radius: 20px;
+            padding: 2rem;
+            width: min(360px, 90vw);
+            border: 1px solid rgba(148,163,184,.2);
+        }
+
+        .modal-content h2 {
+            margin-top: 0;
+        }
+
+        .close-modal {
+            background: transparent;
+            color: #f1f5f9;
+            border: none;
+            font-size: .9rem;
+            margin-top: 1rem;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div class="card">
+    <h1>Entrar</h1>
+
+    <div th:if="${cadastroSucesso}" style="border:1px solid rgba(74,222,128,.4);background:rgba(34,197,94,.15);border-radius:16px;padding:0.9rem;color:#bbf7d0;margin-bottom:1rem;">
+        <span th:text="${cadastroSucesso}"></span>
+    </div>
+    <div th:if="${erroLogin}" style="border:1px solid rgba(248,113,113,.4);background:rgba(248,113,113,.15);border-radius:16px;padding:0.9rem;color:#fecaca;margin-bottom:1rem;">
+        <span th:text="${erroLogin}"></span>
+    </div>
+
+    <form th:action="@{/login}" method="post">
+        <label for="email">E-mail</label>
+        <input id="email" name="email" type="email" placeholder="voce@email.com"
+               th:value="${emailPrefill}">
+
+        <label for="senha">Senha</label>
+        <input id="senha" name="senha" type="password" placeholder="••••••••">
+
+        <button type="submit">Acessar minha conta</button>
+    </form>
+    <div class="links">
+        <a href="#" id="forgotPasswordLink">Esqueci a senha</a>
+        <a th:href="@{/cadastro-senha}">Cadastrar senha</a>
+    </div>
+</div>
+
+<div class="modal" id="forgotPasswordModal">
+    <div class="modal-content">
+        <h2>Recuperar senha</h2>
+        <p>Informe seu e-mail para receber um link seguro de redefinição.</p>
+        <input type="email" placeholder="seuemail@dominio.com">
+        <button type="button">Enviar link</button>
+        <button class="close-modal" type="button" id="closeModal">Cancelar</button>
+    </div>
+</div>
+
+<script>
+    const forgotLink = document.getElementById('forgotPasswordLink');
+    const modal = document.getElementById('forgotPasswordModal');
+    const closeModal = document.getElementById('closeModal');
+
+    forgotLink.addEventListener('click', (event) => {
+        event.preventDefault();
+        modal.classList.add('active');
+    });
+    closeModal.addEventListener('click', () => modal.classList.remove('active'));
+    modal.addEventListener('click', (event) => {
+        if (event.target === modal) modal.classList.remove('active');
+    });
+</script>
+</body>
+</html>
+

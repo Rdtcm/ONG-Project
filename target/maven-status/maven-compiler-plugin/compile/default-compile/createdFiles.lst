@@ -1,6 +1,6 @@
 com/example/projeto_so/controllers/AfiliacaoController.class
-com/example/projeto_so/service/AfiliacaoService.class
-com/example/projeto_so/ProjetoSoApplication.class
 com/example/projeto_so/repository/CandidatoRepository.class
+com/example/projeto_so/ProjetoSoApplication.class
 com/example/projeto_so/entity/Candidato.class
+com/example/projeto_so/service/AfiliacaoService.class
 com/example/projeto_so/controllers/IndexController.class

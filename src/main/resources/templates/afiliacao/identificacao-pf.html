@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Identificação PF - Rede Mais Social</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+        :root {
+            color-scheme: dark;
+        }
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: #030819;
+            font-family: 'Space Grotesk', sans-serif;
+            color: #f8fafc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: clamp(2rem, 6vw, 4rem);
+        }
+        .container {
+            width: min(1040px, 95vw);
+            background: #070f1f;
+            border-radius: 32px;
+            border: 1px solid rgba(148, 163, 184, 0.18);
+            padding: clamp(1.8rem, 4vw, 3rem);
+            box-shadow: 0 35px 80px rgba(0, 0, 0, 0.55);
+        }
+        h1 {
+            margin: 0;
+            font-size: clamp(1.8rem, 4vw, 2.7rem);
+        }
+        p {
+            margin-top: .4rem;
+            color: #94a3b8;
+        }
+        form {
+            margin-top: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.4rem;
+        }
+        label {
+            font-size: .9rem;
+            color: #cbd5f5;
+            display: block;
+            margin-bottom: .45rem;
+        }
+        input, select {
+            width: 100%;
+            border: 1px solid rgba(148,163,184,.25);
+            background: rgba(12, 21, 37, 0.85);
+            color: inherit;
+            border-radius: 20px;
+            padding: 0.95rem 1.2rem;
+            font-size: 1rem;
+            transition: border-color .2s ease, box-shadow .2s ease;
+        }
+        input:focus, select:focus {
+            outline: none;
+            border-color: #34d399;
+            box-shadow: 0 0 0 3px rgba(52, 211, 153, 0.15);
+        }
+        input::placeholder {
+            color: #6b7280;
+        }
+        input[readonly] {
+            background: rgba(12, 21, 37, 0.6);
+            color: #e2e8f0;
+        }
+        .grid {
+            display: grid;
+            gap: 1.2rem;
+            grid-template-columns: 1fr 1fr;
+        }
+        
+        .grid-identificacao {
+            grid-template-columns: 1fr 1fr;
+        }
+        
+        @media (max-width: 820px) {
+            .grid,
+            .grid-identificacao {
+                grid-template-columns: 1fr;
+            }
+        }
+        button {
+            border: none;
+            padding: 1rem;
+            border-radius: 999px;
+            background: linear-gradient(120deg,#34d399,#22d3ee);
+            color: #021423;
+            font-weight: 600;
+            font-size: 1.05rem;
+            cursor: pointer;
+            margin-top: .5rem;
+            box-shadow: 0 25px 45px rgba(34, 211, 238, 0.25);
+            transition: transform .2s ease;
+        }
+        button:hover {
+            transform: translateY(-2px);
+        }
+        .erros {
+            border: 1px solid rgba(248, 113, 113, .4);
+            background: rgba(248, 113, 113, .15);
+            border-radius: 20px;
+            padding: 1rem;
+            color: #fecaca;
+            list-style: none;
+        }
+    </style>
+</head>
+<body>
+<section class="container">
+    <h1>Identificação - Pessoa Física</h1>
+    <p>Confirme os dados abaixo para continuarmos seu cadastro.</p>
+
+    <ul class="erros" th:if="${erros}" >
+        <li th:each="erro : ${erros}" th:text="${erro}"></li>
+    </ul>
+
+    <form th:action="@{/afiliacao/identificacao}" method="post">
+        <div class="grid grid-identificacao">
+            <div>
+                <label>Nome completo</label>
+                <input type="text" name="nome" placeholder="Seu nome" required>
+            </div>
+            <div>
+                <label>CPF</label>
+                <input type="text" th:value="${candidatoEmProcesso.cpfOuCnpj}" readonly>
+            </div>
+        </div>
+
+        <div class="grid">
+            <div>
+                <label>Sexo</label>
+                <select name="sexo" required>
+                    <option value="">Selecione</option>
+                    <option value="M">Masculino</option>
+                    <option value="F">Feminino</option>
+                    <option value="O">Outro</option>
+                </select>
+            </div>
+            <div>
+                <label>Data de nascimento</label>
+                <input type="date" name="dataNascimento" required>
+            </div>
+        </div>
+
+        <div class="grid">
+            <div>
+                <label>Nacionalidade</label>
+                <input type="text" name="nacionalidade" placeholder="Ex.: Brasileira" required>
+            </div>
+            <div>
+                <label>Profissão</label>
+                <input type="text" name="profissao" placeholder="Qual é sua área de atuação?" required>
+            </div>
+        </div>
+
+        <div>
+            <label>Endereço residencial</label>
+            <input type="text" name="enderecoResidencial" placeholder="Rua, número, bairro" required>
+        </div>
+
+        <button type="submit">Avançar para o perfil</button>
+    </form>
+</section>
+</body>
+</html>
+
