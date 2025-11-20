@@ -22,7 +22,7 @@ A estrutura segue a divisão apresentada no diagrama de classes do enunciado (en
 4. **Validações** – `ValidacaoService` aplica regras RN3–RN5: pessoas jurídicas precisam anexar certidões (`processarCertidoesPJ`); pessoas físicas passam por validações de dados pessoais.
 5. **Perfil/Habilidades/Interesses** – `processarFormularioPerfil` cobre os Passos 6–8 do fluxo principal.
 6. **Termo de Compromisso** – `TermoService.obterTermoVigente` e `processarAceiteTermo` implementam os Passos 9–11, armazenando o aceite e alterando o status para `AGUARDANDO_VALIDACAO`.
-7. **Envio/validação de e-mail** – `EmailService` (token + mensagens) cumpre RN1/RN2 e os Passos 12–16, incluindo a tela `email-validacao.html` para o usuário confirmar o token.
+7. **Envio/validação de e-mail** – `EmailService` (token + mensagens) cumpre RN1/RN2 e os Passos 12–16, incluindo a tela `email-validacao.html` para o usuário confirmar o token e, após o sucesso, exibe `aguardando-aprovacao.html` para indicar o novo status `AGUARDANDO_APROVACAO`.
 
 As regras de negócio ficam assim mapeadas:
 
@@ -46,7 +46,7 @@ As páginas em `src/main/resources/templates` reproduzem os frames descritos na 
 - `afiliacao/inicio.html` – Passo 1 (PF/PJ, e-mail e CPF/CNPJ).
 - `identificacao-pf.html` / `identificacao-pj.html` – formulários alinhados aos campos do Passo 3.
 - `afiliacao/certidoes.html` – upload/listagem de certidões (RN4/RN5).
-- `afiliacao/perfil.html`, `afiliacao/termo.html`, `afiliacao/email-validacao.html`, `afiliacao/processo-encerrado.html` – etapas subsequentes do fluxo.
+- `afiliacao/perfil.html`, `afiliacao/termo.html`, `afiliacao/email-validacao.html`, `afiliacao/aguardando-aprovacao.html`, `afiliacao/processo-encerrado.html` – etapas subsequentes do fluxo.
 - `login.html` e `cadastro-senha.html` – autenticação/cadastro, com feedback ao usuário.
 
 Todo o layout foi customizado em CSS puro (gradientes, componentes responsivos) para oferecer a usabilidade esperada na seção “Usabilidade” do PDF.

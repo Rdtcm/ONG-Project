@@ -45,19 +45,20 @@ public class EmailService {
         return true;
     }
 
-    public boolean validarToken(String token) {
+    public Candidato validarToken(String token) {
         EmailValidacao emailValidacao = emailValidacaoRepository.findByToken(token)
             .orElseThrow(() -> new IllegalArgumentException("Token inválido"));
 
         if (!emailValidacao.validarToken(token)) {
-            return false;
+            throw new IllegalStateException("Token expirado ou já utilizado.");
         }
 
         emailValidacao.marcarComoUtilizado();
         emailValidacaoRepository.save(emailValidacao);
 
-        afiliacaoService.atualizarStatus(emailValidacao.getCandidato().getId(), AfiliacaoStatus.AGUARDANDO_APROVACAO);
-        return true;
+        Candidato candidato = emailValidacao.getCandidato();
+        afiliacaoService.atualizarStatus(candidato.getId(), AfiliacaoStatus.AGUARDANDO_APROVACAO);
+        return candidato;
     }
 }
 

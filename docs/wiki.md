@@ -1,7 +1,5 @@
 # Rede Mais Social – Guia Visual e Fluxo de Uso
 
-Este documento serve como roteiro para a Wiki do projeto, detalhando **cada tela do fluxo de afiliação** e como ela se conecta à especificação oficial (`Projeto_-_Especificacao_de_Requisitos_de_Software.pdf`). Substitua os caminhos de imagens (`docs/images/...`) pelos arquivos finais antes de publicar.
-
 > 💡 **Referência principal:** Especificação de Requisitos de Software – UC002 Solicita Afiliação (versão 1.0).  
 > Cada seção abaixo menciona explicitamente o passo do fluxo principal ou regras RN1–RN5.
 
@@ -88,7 +86,17 @@ Este documento serve como roteiro para a Wiki do projeto, detalhando **cada tela
 
 ---
 
-## 9. Login
+## 9. Status "Aguardando aprovação"
+
+![Aguardando Aprovação](docs/images/aguardando-aprovacao.png)
+
+- **URL:** `/afiliacao/validar-email?token=...` (redireciona após validação bem-sucedida)
+- **Descrição:** confirma que o token foi aceito e exibe o status `AGUARDANDO_APROVACAO`, juntamente com os dados do candidato.
+- **Especificação:** fecha o Passo 16 do fluxo (informar que o candidato está aguardando aprovação) e satisfaz RN1/RN2.
+
+---
+
+## 10. Login
 
 ![Login](docs/images/login.png)
 
@@ -98,7 +106,7 @@ Este documento serve como roteiro para a Wiki do projeto, detalhando **cada tela
 
 ---
 
-## 10. Cadastro de Senha
+## 11. Cadastro de Senha
 
 ![Cadastro de Senha](docs/images/cadastro-senha.png)
 
@@ -108,7 +116,7 @@ Este documento serve como roteiro para a Wiki do projeto, detalhando **cada tela
 
 ---
 
-## 11. Modal “Esqueci a senha”
+## 12. Modal “Esqueci a senha”
 
 ![Recuperar Senha](docs/images/recuperar-senha.png)
 
@@ -117,7 +125,7 @@ Este documento serve como roteiro para a Wiki do projeto, detalhando **cada tela
 
 ---
 
-## 12. Fluxo Resumido
+## 13. Fluxo Resumido
 
 1. **Landing (`/`)** → Solicitar Afiliação.  
 2. **Seleção PF/PJ (`/afiliacao/inicio`)** → Verifica duplicidade.  
@@ -128,7 +136,7 @@ Este documento serve como roteiro para a Wiki do projeto, detalhando **cada tela
 5. **Aceite**  
    - Se aceitar: status `AGUARDANDO_VALIDACAO`, envia token e solicita validação.  
    - Se rejeitar: processo encerrado.  
-6. **Validação de e-mail** → status `AGUARDANDO_APROVACAO`.  
+6. **Validação de e-mail** → tela de status `AGUARDANDO_APROVACAO`.  
 7. **Login / Cadastro de senha** controlam quem pode iniciar o fluxo novamente.
 
 ---

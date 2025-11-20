@@ -242,17 +242,15 @@ public class AfiliacaoController {
                                Model model,
                                SessionStatus sessionStatus) {
         try {
-            boolean valido = emailService.validarToken(token);
-            if (valido) {
-                model.addAttribute("mensagem", "E-mail validado com sucesso! Aguarde a aprovação.");
-                sessionStatus.setComplete();
-            } else {
-                model.addAttribute("mensagem", "Token inválido ou expirado.");
-            }
-        } catch (IllegalArgumentException ex) {
+            Candidato candidato = emailService.validarToken(token);
+            model.addAttribute("candidato", candidato);
+            model.addAttribute("status", AfiliacaoStatus.AGUARDANDO_APROVACAO.name());
+            sessionStatus.setComplete();
+            return "afiliacao/aguardando-aprovacao";
+        } catch (IllegalArgumentException | IllegalStateException ex) {
             model.addAttribute("mensagem", ex.getMessage());
+            return "afiliacao/email-validacao";
         }
-        return "afiliacao/email-validacao";
     }
 
     @GetMapping("/candidatos")
